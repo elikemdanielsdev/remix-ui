@@ -4,10 +4,26 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
+import "@radix-ui/themes/styles.css";
+import "~/tailwind.css";
+import { ErrorBoundary } from "~/lib/error";
+import { SEOMeta } from "~/lib/seo-meta";
+import { Theme } from "@radix-ui/themes";
+import HeaderDesktop from "~/components/HeaderDesktop";
+import Footer from "~/components/Footer";
 
-import "./tailwind.css";
+// SEO Meta
+// export const meta = SEOMeta({
+//   title: "Elikem Daniels",
+//   description: "Welcome to the home page",
+//   keywords: "remix, react, javascript, typescript",
+//   ogImage: "https://images.unsplash.com/photo-1728595840390-d01e1a63f27d?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+//   ogTitle: "Elikem Daniels",
+//   ogDescription: "Welcome to the home page"
+// });
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -22,6 +38,7 @@ export const links: LinksFunction = () => [
   },
 ];
 
+// Root Layout
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -40,6 +57,18 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+// Root Layout Outlet
 export default function App() {
-  return <Outlet />;
+  return (
+    <Theme radius="full" className="flex flex-col min-h-screen">
+      <HeaderDesktop />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
+      <Footer />
+    </Theme>
+  );
 }
+
+// Conditional Error Message
+export { ErrorBoundary };
