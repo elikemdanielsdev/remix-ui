@@ -11,7 +11,7 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
   const [articles, article, general_settings] = await Promise.all([
     directus.request(readItems("articles")),
     directus.request(readItem("articles", slug as string)),
-    directus.request(readSingleton("general_settings")),
+    // directus.request(readSingleton("general_settings")),
   ]);
 
   // if (!article) {
@@ -22,14 +22,14 @@ export const loader = async ({ params }: LoaderFunctionArgs) => {
 };
 
 // SEO Meta
-export const meta: MetaFunction<typeof loader> = ({ data }) => {
-  const { general_settings, article } = data || {};
+// export const meta: MetaFunction<typeof loader> = ({ data }) => {
+//   const { general_settings, article } = data || {};
 
-  return [
-    { title: `${general_settings?.name} - ${article?.title}` },
-    { property: "og:title", content: `${general_settings?.name} - ${article?.title}` },
-  ];
-};
+//   return [
+//     { title: `${general_settings?.name} - ${article?.title}` },
+//     { property: "og:title", content: `${general_settings?.name} - ${article?.title}` },
+//   ];
+// };
 
 // Render Single Article
 export default function SingleArticle() {
